@@ -31,7 +31,7 @@ class PaymentTransaction(models.Model):
 
         _logger.warning(processing_values)
         # Initiate the payment and retrieve the payment link data.
-        base_url = 'https://1af4-2405-201-2010-2167-2d6-f2da-6789-bcb1.ngrok-free.app/' #self.provider_id.get_base_url()
+        base_url = 'https://d186-2405-201-200f-18b4-9b5b-74f8-cdc2-8398.ngrok-free.app/' #self.provider_id.get_base_url()
 
         payload = {
             'order_id': self.reference,
@@ -46,7 +46,7 @@ class PaymentTransaction(models.Model):
 
         provider = self.env['payment.provider'].search([('code', '=', 'stancer')], limit=1)
         payment_method_line = self.provider_id.journal_id.inbound_payment_method_line_ids\
-            .filtered(lambda l: l.code == self.provider_id._get_code())
+            .filtered(lambda l: l.code == self.provider_id.code)
 
         payment_transaction = self.search([('reference', '=', self.reference), ('provider_code', '=', 'stancer')], limit=1)
 

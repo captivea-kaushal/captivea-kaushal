@@ -25,7 +25,7 @@ class StancerController(http.Controller):
 
         stancer_provider = request.env['payment.provider'].sudo().search([('code', '=', 'stancer')])
         payment_method_line = stancer_provider.journal_id.inbound_payment_method_line_ids \
-            .filtered(lambda l: l.code == stancer_provider._get_code())
+            .filtered(lambda l: l.code == stancer_provider.code)
         last_transection_of_order = request.env['payment.transaction'].sudo().search(
             [('reference', 'ilike', order.name)], order="create_date desc", limit=1)
         stancer_payment_id = last_transection_of_order.provider_reference
@@ -36,8 +36,8 @@ class StancerController(http.Controller):
         if payment_responce.get('response') == '00' and payment_responce.get('status') not in ['canceled', 'disputed', 'failed', 'refused']:
 
             payment_values = {
-                'amount': payment_responce['amount'],
-                'payment_type': 'inbound' if payment_responce['amount'] > 0 else 'outbound',
+                'amount': payment_responce['amount'] / 100,
+                'payment_type': 'inbound' if payment_responce['amount']/100 > 0 else 'outbound',
                 'currency_id': last_transection_of_order.currency_id.id,
                 'partner_id': last_transection_of_order.partner_id.commercial_partner_id.id,
                 'partner_type': 'customer',
@@ -74,7 +74,7 @@ class StancerController(http.Controller):
         sale_order = request.env['sale.order'].browse(int(kwargs.get('sale_order')))
         stancer_provider = request.env['payment.provider'].sudo().search([('code', '=', 'stancer')])
         payment_method_line = stancer_provider.journal_id.inbound_payment_method_line_ids \
-            .filtered(lambda l: l.code == stancer_provider._get_code())
+            .filtered(lambda l: l.code == stancer_provider.code)
         sale_amount = kwargs.get('stancer_order_amount')
         stancer_payment = kwargs.get('stancer_order_transaction')
         headers = {
