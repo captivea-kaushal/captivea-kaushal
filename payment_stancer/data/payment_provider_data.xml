@@ -4,7 +4,6 @@
     <record id="payment_method_stancer" model="payment.method">
         <field name="name">Stancer</field>
         <field name="code">stancer</field>
-<!--        <field name="sequence">10</field>-->
         <field name="active">False</field>
         <field name="image" type="base64" file="payment_stancer/static/description/icon.png"/>
         <field name="support_tokenization">True</field>
@@ -36,22 +35,11 @@
         <field name="payment_type">inbound</field>
     </record>
 
-<!--    <record id="payment_method_stancer" model="payment.method">-->
-<!--        <field name="name">Stancer</field>-->
-<!--        <field name="code">stancer</field>-->
-<!--&lt;!&ndash;        <field name="sequence">10</field>&ndash;&gt;-->
-<!--        <field name="active">False</field>-->
-<!--        <field name="image" type="base64" file="payment_stancer/static/description/icon.png"/>-->
-<!--        <field name="support_tokenization">True</field>-->
-<!--        <field name="support_express_checkout">False</field>-->
-<!--        <field name="support_refund"></field>-->
-<!--    </record>-->
 
     <record id="payment_method_jcb_international_stancer" model="payment.method">
         <field name="name">Japanese Credit Bureau</field>
         <field name="code">jcb</field>
         <field name="primary_payment_method_id" eval="ref('payment_stancer.payment_method_stancer')"/>
-<!--        <field name="sequence">1000</field>-->
         <field name="active">False</field>
         <field name="image" type="base64" file="payment_stancer/static/description/jcb.png"/>
     </record>
@@ -60,7 +48,6 @@
         <field name="name">Cartes Bancaires</field>
         <field name="code">cb</field>
         <field name="primary_payment_method_id" eval="ref('payment_stancer.payment_method_stancer')"/>
-<!--        <field name="sequence">1000</field>-->
         <field name="active">False</field>
         <field name="image" type="base64" file="payment_stancer/static/description/cb.jpeg"/>
     </record>
@@ -69,7 +56,6 @@
         <field name="name">VISA</field>
         <field name="code">visa</field>
         <field name="primary_payment_method_id" eval="ref('payment_stancer.payment_method_stancer')"/>
-<!--        <field name="sequence">1000</field>-->
         <field name="active">False</field>
         <field name="image" type="base64" file="payment/static/img/visa.png"/>
     </record>
@@ -78,7 +64,6 @@
         <field name="name">MasterCard</field>
         <field name="code">mastercard</field>
         <field name="primary_payment_method_id" eval="ref('payment_stancer.payment_method_stancer')"/>
-<!--        <field name="sequence">1000</field>-->
         <field name="active">False</field>
         <field name="image" type="base64" file="payment/static/img/mastercard.png"/>
     </record>
@@ -87,11 +72,8 @@
         <field name="name">VISA</field>
         <field name="code">visa</field>
         <field name="primary_payment_method_id" eval="ref('payment_stancer.payment_method_stancer')"/>
-<!--        <field name="sequence">1000</field>-->
         <field name="active">False</field>
         <field name="image" type="base64" file="payment/static/img/visa.png"/>
     </record>
-
-
 
 </odoo>

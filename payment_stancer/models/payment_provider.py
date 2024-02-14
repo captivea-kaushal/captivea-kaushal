@@ -5,10 +5,8 @@ import pprint
 import base64
 import requests
 from werkzeug.urls import url_join
-
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
-
 from odoo.addons.payment_stancer import const
 
 
