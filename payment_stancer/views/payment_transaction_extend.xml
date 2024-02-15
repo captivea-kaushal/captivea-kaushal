@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="payment.payment_transaction_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_void']" position="after">
-                <button type="object" name="action_stancer_refund" attrs="{'invisible': [('state', '!=', 'done'), ('provider_code', '!=', 'stancer'), ('refund_processed', '=', True), ('is_refund_transfer', '=', True)]}" string="Process Stancer Refund" class="oe_highlight"/>
+                <button type="object" name="action_stancer_refund" attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'done'), ('provider_code', '!=', 'stancer'), ('refund_processed', '=', True), ('is_refund_transfer', '=', True)]}" string="Process Stancer Refund" class="oe_highlight"/>
             </xpath>
 
             <xpath expr="//field[@name='provider_reference']" position="after">
