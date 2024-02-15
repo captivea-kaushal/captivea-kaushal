@@ -121,8 +121,8 @@ class PaymentTransaction(models.Model):
             })
             self.stancer_refund_tx_id = refund_tx.id
             payment_values = {
-                'amount': -amount/100,
-                'payment_type': 'inbound' if self.amount > 0 else 'outbound',
+                'amount': amount/100,
+                'payment_type': 'outbound',
                 'currency_id': self.currency_id.id,
                 'partner_id': self.partner_id.commercial_partner_id.id,
                 'partner_type': 'customer',

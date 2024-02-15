@@ -19,7 +19,7 @@
 
             <xpath expr="//group[2]" position="after">
                 <group string="Refund Response" invisible="not refund_response">
-                        <field name="refund_response" colspan="2" nolabel="1"/>
+                        <field name="refund_response" nolabel="1"/>
                 </group>
             </xpath>
         </field>
