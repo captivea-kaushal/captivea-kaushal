@@ -9,7 +9,7 @@
         'views/payment_stancer_templates.xml',
         'data/payment_provider_data.xml',
         'views/payment_provider_views.xml',
-        # 'views/sale_order_portal_extend.xml',
+        'views/payment_transaction_extend.xml',
     ],
     'assets': {
         'web.assets_frontend': [

@@ -2,21 +2,21 @@
 <odoo>
     <record id="payment_provider_form_stancer" model="ir.ui.view">
         <field name="name">Stancer Provider Form</field>
-        <field name="model">payment.provider</field>
-        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.payment_acquirer_form"/>
         <field name="arch" type="xml">
-            <group name="provider_credentials" position='inside'>
+            <xpath expr='//group[@name="acquirer"]' position='inside'>
                 <group name="stancer_credentials"
-                       attrs="{'invisible': [('code', '!=', 'stancer')]}">
+                       attrs="{'invisible': [('provider', '!=', 'stancer')]}">
                     <field name="stancer_key_client"
                            string="Client ID"
-                           attrs="{'required': [('code', '!=', 'stancer'), ('state', '!=', 'disabled')]}"/>
+                           attrs="{'required': [('provider', '!=', 'stancer'), ('state', '!=', 'disabled')]}"/>
                     <field name="stancer_key_secret"
                            string="Client Secret"
-                           attrs="{'required': [('code', '!=', 'stancer'), ('state', '!=', 'disabled')]}"
+                           attrs="{'required': [('provider', '!=', 'stancer'), ('state', '!=', 'disabled')]}"
                            password="True"/>
                 </group>
-            </group>
+            </xpath>
         </field>
     </record>
 </odoo>

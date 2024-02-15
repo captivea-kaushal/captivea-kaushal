@@ -16,9 +16,9 @@ _logger = logging.getLogger(__name__)
 
 
 class PaymentProvider(models.Model):
-    _inherit = 'payment.provider'
+    _inherit = 'payment.acquirer'
 
-    code = fields.Selection(
+    provider = fields.Selection(
         selection_add=[('stancer', "Stancer")], ondelete={'stancer': 'set default'}
     )
     stancer_key_client = fields.Char(
@@ -32,26 +32,31 @@ class PaymentProvider(models.Model):
         groups='base.group_system',
     )
 
+    def _get_default_payment_method_id(self):
+        self.ensure_one()
+        if self.provider != 'stripe':
+            return super()._get_default_payment_method_id()
+        return self.env.ref('payment_stancer.account_payment_method_stancer').id
     #=== COMPUTE METHODS ===#
 
-    def _compute_feature_support_fields(self):
-        """ Override of `payment` to enable additional features. """
-        super()._compute_feature_support_fields()
-        self.filtered(lambda p: p.code == 'stancer').update({
-            'support_manual_capture': 'full_only',
-            'support_refund': 'partial',
-        })
+    # def _compute_feature_support_fields(self):
+    #     """ Override of `payment` to enable additional features. """
+    #     super()._compute_feature_support_fields()
+    #     self.filtered(lambda p: p.provider == 'stancer').update({
+    #         'support_manual_capture': 'full_only',
+    #         'support_refund': 'partial',
+    #     })
 
     # === BUSINESS METHODS ===#
 
-    def _get_supported_currencies(self):
-        """ Override of `payment` to return the supported currencies. """
-        supported_currencies = super()._get_supported_currencies()
-        if self.code == 'stancer':
-            supported_currencies = supported_currencies.filtered(
-                lambda c: c.name in const.SUPPORTED_CURRENCIES
-            )
-        return supported_currencies
+    # def _get_supported_currencies(self):
+    #     """ Override of `payment` to return the supported currencies. """
+    #     supported_currencies = super()._get_supported_currencies()
+    #     if self.provider == 'stancer':
+    #         supported_currencies = supported_currencies.filtered(
+    #             lambda c: c.name in const.SUPPORTED_CURRENCIES
+    #         )
+    #     return supported_currencies
 
     def _stancer_make_request(self, endpoint, payload=None, method=''):
         """ Make a request to Stancer API at the specified endpoint.
@@ -97,9 +102,9 @@ class PaymentProvider(models.Model):
             )
         return response.json()
 
-    def _get_default_payment_method_codes(self):
-        """ Override of `payment` to return the default payment method codes. """
-        default_codes = super()._get_default_payment_method_codes()
-        if self.code != 'stancer':
-            return default_codes
-        return const.DEFAULT_PAYMENT_METHODS_CODES
+    # def _get_default_payment_method_codes(self):
+    #     """ Override of `payment` to return the default payment method codes. """
+    #     default_codes = super()._get_default_payment_method_codes()
+    #     if self.provider != 'stancer':
+    #         return default_codes
+    #     return const.DEFAULT_PAYMENT_METHODS_CODES
