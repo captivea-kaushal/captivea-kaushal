@@ -38,7 +38,7 @@ class StancerController(http.Controller):
 
             payment_values = {
                 'amount': payment_responce['amount'] / 100,
-                'payment_type': 'inbound' if payment_responce['amount']/100 > 0 else 'outbound',
+                'payment_type': 'inbound',
                 'currency_id': last_transection_of_order.currency_id.id,
                 'partner_id': last_transection_of_order.partner_id.commercial_partner_id.id,
                 'partner_type': 'customer',
